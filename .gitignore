@@ -1,0 +1,6 @@
+/.idea
+/react/node_modules
+*.iml
+npm-debug.log
+src/main
+react/bundle.js
