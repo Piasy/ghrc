@@ -9,7 +9,7 @@ import (
 	"sort"
 	"time"
 
-	"github.com/Piasy/GithubRankChina/src/models"
+	"github.com/Piasy/ghrc/models"
 )
 
 const (

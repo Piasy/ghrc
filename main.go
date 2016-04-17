@@ -12,8 +12,8 @@ import (
 	"qiniupkg.com/api.v7/conf"
 	"qiniupkg.com/api.v7/kodocli"
 
-	"github.com/Piasy/GithubRankChina/src/api"
-	"github.com/Piasy/GithubRankChina/src/models"
+	"github.com/Piasy/ghrc/api"
+	"github.com/Piasy/ghrc/models"
 )
 
 var (
