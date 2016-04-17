@@ -12,7 +12,7 @@ class GHRC extends React.Component {
 
     componentWillMount() {
         let self = this;
-        fetch('http://7xt1k0.com2.z0.glb.clouddn.com/ghrc.json').then(function (response) {
+        fetch('http://ghrc.babits.top/ghrc.json').then(function (response) {
             return response.json();
         }).then(function (data) {
             self.setState(data);
