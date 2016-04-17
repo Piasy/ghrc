@@ -16,8 +16,8 @@ let RankItem = React.createClass({
                 </td>
                 <td>{one.name}</td>
                 <td>{one.dashboard_star}</td>
-                <td>{one.public_repos}</td>
                 <td>{one.followers}</td>
+                <td>{one.public_repos}</td>
                 <td>{one.location}</td>
                 <td>{one.updated_at}</td>
             </tr>

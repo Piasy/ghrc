@@ -39,9 +39,9 @@ class GHRC extends React.Component {
                             <th>Username</th>
                             <th>Name</th>
                             <th>DashboardStar</th>
-                            <th>Location</th>
                             <th>Followers</th>
                             <th>Repos</th>
+                            <th>Location</th>
                             <th>Updated</th>
                         </tr>
                         </thead>
