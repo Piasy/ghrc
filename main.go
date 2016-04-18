@@ -1,13 +1,16 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"net/http"
 	"os"
 	"sort"
 	"time"
 
+	"github.com/qiniu/api.v7/auth/qbox"
 	"github.com/qiniu/api.v7/kodo"
 	"qiniupkg.com/api.v7/conf"
 	"qiniupkg.com/api.v7/kodocli"
@@ -69,4 +72,20 @@ func main() {
 		fmt.Println("io.Put failed:", res)
 		return
 	}
+
+	// 刷新CDN缓存
+	mac := qbox.NewMac(os.Args[2], os.Args[3])
+	req, _ := http.NewRequest("POST", "http://fusion.qiniuapi.com/refresh", bytes.NewBuffer([]byte("{\"urls\":[\"http://ghrc.babits.top/ghrc.json\"]}")))
+	qboxToken, _ := mac.SignRequest(req, false)
+	req.Header.Add("Host", "fusion.qiniuapi.com")
+	req.Header.Add("Content-Type", "application/json")
+	req.Header.Add("Authorization", "QBox "+qboxToken)
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		fmt.Println("Refresh cache fail:", err)
+		return
+	}
+	defer resp.Body.Close()
+	body, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println("Refresh cache succeed", string(body))
 }

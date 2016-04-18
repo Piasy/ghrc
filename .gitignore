@@ -2,6 +2,6 @@
 /react/node_modules
 *.iml
 npm-debug.log
-src/main
+main
 react/bundle.js
 react/ghrc.json
