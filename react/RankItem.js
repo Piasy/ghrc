@@ -10,7 +10,7 @@ let RankItem = React.createClass({
         let one = this.props.rank;
         return (
             <tr>
-                <td>{one.rank}</td>
+                <td><a name={one.rank} href={`#${one.rank}`}>{one.rank}</a></td>
                 <td><img className="avatar" src={one.avatar_url + "&s=140"}/></td>
                 <td><a href={"https://github.com/" + one.login} target="_blank">{one.login}</a>
                 </td>
