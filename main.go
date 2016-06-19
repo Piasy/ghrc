@@ -20,11 +20,6 @@ import (
   "github.com/Piasy/ghrc/models"
 )
 
-var (
-  bucket = "ghrc"
-  key = "ghrc.json"
-)
-
 func check(err error, msg string) {
   if err != nil {
     fmt.Println(err)
@@ -55,7 +50,7 @@ func main() {
   check(err, "Parse index.tpl fail")
   tplData := struct {
     UpdateTime string
-    Ranks []*models.User
+    Ranks      []*models.User
   }{
     UpdateTime: rank.UpdatedAt,
     Ranks: rank.Ranks,
@@ -72,14 +67,12 @@ func main() {
   //创建一个Client
   c := kodo.New(0, nil)
 
-  //设置上传的策略
-  policy := &kodo.PutPolicy{
-    Scope: bucket + ":" + key,
+  //生成一个上传token
+  token := c.MakeUptoken(&kodo.PutPolicy{
+    Scope: "ghrc:ghrc.json",
     //设置Token过期时间
     Expires: 180,
-  }
-  //生成一个上传token
-  token := c.MakeUptoken(policy)
+  })
 
   //构建一个uploader
   zone := 0
@@ -87,7 +80,7 @@ func main() {
 
   var ret models.PutRet
   //调用PutFileWithoutKey方式上传，没有设置saveasKey以文件的hash命名
-  res := uploader.PutFile(nil, &ret, token, key, "./ghrc.json", nil)
+  res := uploader.PutFile(nil, &ret, token, "ghrc.json", "./ghrc.json", nil)
   //打印返回的信息
   fmt.Println(ret)
   //打印出错信息
@@ -95,7 +88,13 @@ func main() {
     fmt.Println("io.Put failed:", res)
     return
   }
-  res = uploader.PutFile(nil, &ret, token, key, "./index.html", nil)
+  //生成一个上传token
+  token = c.MakeUptoken(&kodo.PutPolicy{
+    Scope: "ghrc:index.html",
+    //设置Token过期时间
+    Expires: 180,
+  })
+  res = uploader.PutFile(nil, &ret, token, "index.html", "./index.html", nil)
   //打印返回的信息
   fmt.Println(ret)
   //打印出错信息
