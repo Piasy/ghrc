@@ -52,7 +52,7 @@
           <img class="avatar" src="{{$user.Avatar}}&s=140">
         </td>
         <td>
-          <a href="{{$user.Url}}" target="_blank">{{$user.Login}}</a>
+          <a href="https://github.com/{{$user.Login}}" target="_blank">{{$user.Login}}</a>
         </td>
         <td>{{$user.Name}}</td>
         <td>{{$user.DashboardStar}}</td>
